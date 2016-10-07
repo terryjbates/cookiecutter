@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
-cookiecutter.utils
-------------------
-
-Helper functions used throughout Cookiecutter.
-"""
+"""Helper functions used throughout Cookiecutter."""
 
 from __future__ import unicode_literals
 import contextlib
@@ -19,33 +14,28 @@ logger = logging.getLogger(__name__)
 
 
 def force_delete(func, path, exc_info):
-    """
-    Error handler for `shutil.rmtree()` equivalent to `rm -rf`
-    Usage: `shutil.rmtree(path, onerror=force_delete)`
-    From stackoverflow.com/questions/1889597
-    """
+    """Error handler for `shutil.rmtree()` equivalent to `rm -rf`.
 
+    Usage: `shutil.rmtree(path, onerror=force_delete)`
+    From http://stackoverflow.com/questions/1889597
+    """
     os.chmod(path, stat.S_IWRITE)
     func(path)
 
 
 def rmtree(path):
-    """
-    Removes a directory and all its contents. Like rm -rf on Unix.
+    """Remove a directory and all its contents. Like rm -rf on Unix.
 
     :param path: A directory path.
     """
-
     shutil.rmtree(path, onerror=force_delete)
 
 
 def make_sure_path_exists(path):
-    """
-    Ensures that a directory exists.
+    """Ensure that a directory exists.
 
     :param path: A directory path.
     """
-
     logger.debug('Making sure path exists: {}'.format(path))
     try:
         os.makedirs(path)
@@ -58,9 +48,9 @@ def make_sure_path_exists(path):
 
 @contextlib.contextmanager
 def work_in(dirname=None):
-    """
-    Context manager version of os.chdir. When exited, returns to the working
-    directory prior to entering.
+    """Context manager version of os.chdir.
+
+    When exited, returns to the working directory prior to entering.
     """
     curdir = os.getcwd()
     try:
@@ -72,8 +62,7 @@ def work_in(dirname=None):
 
 
 def make_executable(script_path):
-    """
-    Makes `script_path` executable
+    """Make `script_path` executable.
 
     :param script_path: The file to change
     """
